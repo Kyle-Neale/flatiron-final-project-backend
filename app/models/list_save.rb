@@ -1,0 +1,2 @@
+class ListSave < ApplicationRecord
+end
