@@ -9,4 +9,8 @@ Rails.application.routes.draw do
       resources :notifications, only: [:index, :update]
     end
   end
+
+  post "/login", to: "auth#login"
+  get "/current_user" to: "auth#current_user"
+
 end
