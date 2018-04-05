@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   end
 
   post "/login", to: "auth#login"
-  get "/current_user" to: "auth#current_user"
+  get "/current_user", to: "auth#show"
 
 end

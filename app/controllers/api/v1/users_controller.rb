@@ -13,7 +13,8 @@ class Api::V1::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      render json: @user
+      jwt = issue_token(user_id: @user.id)
+      render json: {user: @user, token: jwt}
     else
       render json: [error: @user.errors.messages]
     end
@@ -39,7 +40,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username)
+    params.require(:user).permit(:username, :password)
   end
 
 end
