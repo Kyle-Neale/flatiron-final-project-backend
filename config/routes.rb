@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :create, :update, :destroy]
       resources :friendships, only: [:index, :create, :update, :delete]
       resources :places, only: [:index, :create]
-      resources :save, only: [:index, :create, :update, :delete]
+      resources :spots, only: [:index, :create, :update, :delete]
       resources :notifications, only: [:index, :update]
     end
   end

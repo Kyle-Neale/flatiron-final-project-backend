@@ -12,7 +12,7 @@ class Api::V1::PlacesController < ApplicationController
       render json: @place
     else
       @place = Place.find_by(google_uid: place_params[:google_uid])
-      Save.create(user_id: current_user.id, place_id: @place.id)
+      Spot.create(user_id: current_user.id, place_id: @place.id)
       render json: @place
     end
   end
