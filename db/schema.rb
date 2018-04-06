@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20180404142325) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.string "save_id"
+    t.string "spot_id"
     t.string "text"
     t.string "image_url"
     t.datetime "created_at", null: false
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20180404142325) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "list_saves", force: :cascade do |t|
-    t.integer "save_id"
+  create_table "list_spots", force: :cascade do |t|
+    t.integer "spot_id"
     t.integer "list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20180404142325) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "saves", force: :cascade do |t|
+  create_table "spots", force: :cascade do |t|
     t.integer "user_id"
     t.integer "place_id"
     t.string "type"
