@@ -1,9 +1,19 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  include ActiveModel::Serialization
 
   def index
-    @users = User.all
-    render json: @users
+    @unfriended = User.unfriended(user)
+    @friends = user.accepted_friends
+    @requested_friends = user.requested_friends
+    @pending_friends = user.pending_friends
+    render json:
+      {
+        unfriended: @unfriended,
+        pending_friends: @pending_friends,
+        accepted_friends: @friends,
+        requested_friends: @requested_friends
+      }
   end
 
   def show

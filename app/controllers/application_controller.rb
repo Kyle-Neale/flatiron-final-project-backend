@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
     JWT.encode(payload, ENV["secret"], algorithm)
   end
 
-  def current_user
+  def user
     User.find_by(id: token_user_id)
   end
 

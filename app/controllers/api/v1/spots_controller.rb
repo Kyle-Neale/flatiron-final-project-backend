@@ -1,13 +1,13 @@
 class Api::V1::SpotsController < ApplicationController
 
   def index
-    @spots = Spot.all
+    @spots = Spot.where(user_id: user.id)
     render json: @spots
   end
 
   def create
     @place = Place.find_or_create_by(place_params)
-    @spot = Spot.create(user_id: current_user.id, place_id: @place.id)
+    @spot = Spot.find_or_create_by(user_id: user.id, place_id: @place.id)
     render json: @spot
   end
 
@@ -22,7 +22,7 @@ class Api::V1::SpotsController < ApplicationController
   def destroy
     @spot = Spot.find_by(id: params[:id])
     @spot.destroy
-    render json: [message: "Spot deleted."]
+    render json: {message: "Spot deleted."}
   end
 
 

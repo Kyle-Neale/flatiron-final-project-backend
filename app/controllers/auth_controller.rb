@@ -11,8 +11,8 @@ class AuthController  < ApplicationController
   end
 
   def show
-    if current_user
-      render json: current_user
+    if user
+      render json: user
     else
       render json: {error: "User not found or token expired"}, status: 401
     end
