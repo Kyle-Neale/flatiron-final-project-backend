@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post "friendships/delete", to: "friendships#destroy"
       post "friendships/update", to: "friendships#update"
       resources :places, only: [:index, :create]
+      resources :comments, only: [:create, :destroy]
       resources :spots, only: [:index, :create, :update, :destroy]
       resources :notifications, only: [:index, :update]
     end
