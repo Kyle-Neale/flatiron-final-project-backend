@@ -10,11 +10,11 @@ class Api::V1::UsersController < ApplicationController
     @pending_friends = user.pending_friends
     render json:
       {
-        all: @all,
-        unfriended: @unfriended,
-        pending_friends: @pending_friends,
-        accepted_friends: @friends,
-        requested_friends: @requested_friends
+        all: serialize(@all),
+        unfriended: serialize(@unfriended),
+        pending_friends: serialize(@pending_friends),
+        accepted_friends: serialize(@friends),
+        requested_friends: serialize(@requested_friends)
       }
   end
 
@@ -53,6 +53,12 @@ class Api::V1::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :password)
+  end
+
+  def serialize(collection)
+    collection.map do |item|
+      UserSerializer.new(item)
+    end
   end
 
 end

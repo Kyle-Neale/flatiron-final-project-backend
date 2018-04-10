@@ -11,8 +11,9 @@ class Api::V1::SpotsController < ApplicationController
   end
 
   def create
+    byebug
     @place = Place.find_or_create_by(place_params)
-    @spot = Spot.find_or_create_by(user_id: user.id, place_id: @place.id)
+    @spot = Spot.find_or_create_by(user_id: user.id, place_id: @place.id, spot_type: params[:type])
     render json: @spot
   end
 
@@ -40,5 +41,6 @@ class Api::V1::SpotsController < ApplicationController
   def spot_params
     params.require(:spot).permit(:user_id, :place_id, :type, :source)
   end
+
 
 end

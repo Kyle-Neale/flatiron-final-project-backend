@@ -1,5 +1,5 @@
 class SpotSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :spot_type
   belongs_to :place
   has_many :comments
 end
