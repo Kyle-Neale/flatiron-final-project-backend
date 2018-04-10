@@ -2,6 +2,10 @@ class Api::V1::CommentsController < ApplicationController
 
   def create
     @comment = Comment.create(comment_params)
+    if user
+      @comment.update(user_id: user.id)
+    end
+    byebug
     render json: @comment
   end
 

@@ -3,12 +3,14 @@ class Api::V1::UsersController < ApplicationController
   include ActiveModel::Serialization
 
   def index
+    @all = User.all
     @unfriended = User.unfriended(user)
     @friends = user.accepted_friends
     @requested_friends = user.requested_friends
     @pending_friends = user.pending_friends
     render json:
       {
+        all: @all,
         unfriended: @unfriended,
         pending_friends: @pending_friends,
         accepted_friends: @friends,

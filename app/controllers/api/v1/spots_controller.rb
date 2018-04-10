@@ -1,7 +1,12 @@
 class Api::V1::SpotsController < ApplicationController
 
   def index
-    @spots = Spot.where(user_id: user.id)
+    if user
+      @spots = Spot.where(user_id: user.id)
+    else
+      @user_id = request.headers['Authorization']
+      @spots = Spot.where(user_id: @user_id)
+    end
     render json: @spots
   end
 
