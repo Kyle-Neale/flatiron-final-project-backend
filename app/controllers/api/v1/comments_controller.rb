@@ -5,7 +5,6 @@ class Api::V1::CommentsController < ApplicationController
     if user
       @comment.update(user_id: user.id)
     end
-    byebug
     render json: @comment
   end
 

@@ -6,6 +6,7 @@ class Api::V1::PlacesController < ApplicationController
   end
 
   def create
+    byebug
     @place = Place.new(place_params)
     if @place.save
       Spot.create(user_id: current_user.id, place_id: @place.id)
@@ -20,7 +21,7 @@ class Api::V1::PlacesController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:name, :google_uid, :description, :lat, :lng, :address, :phone_number)
+    params.require(:place).permit(:name, :google_uid, :description, :lat, :lng, :address, :phone_number, :website)
   end
 
 end

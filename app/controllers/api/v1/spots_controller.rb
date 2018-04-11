@@ -11,14 +11,22 @@ class Api::V1::SpotsController < ApplicationController
   end
 
   def create
+    @place = Place.find_by(google_uid: place_params[:google_uid])
+    if @place
+      @place.update(place_params) # in the case that Google updates the place's attributes
+    else
+      @place = Place.create(place_params)
+      @spot = Spot.create(user_id: user.id, place_id: @place.id, spot_type: params[:type])
+    end
+    @spot = Spot.find_or_create_by(user_id: user.id, place_id: @place.id)
+    @spot.update(spot_type: params[:spot_type])
     byebug
-    @place = Place.find_or_create_by(place_params)
-    @spot = Spot.find_or_create_by(user_id: user.id, place_id: @place.id, spot_type: params[:type])
     render json: @spot
   end
 
   def update
-    if @spot.update(params[:spot])
+    @spot = Spot.find_by(id: params[:id])
+    if @spot.update(spot_type: params[:spot_type])
       render json: @spot
     else
       render json: [error: @spot.errors.messages]
@@ -35,11 +43,11 @@ class Api::V1::SpotsController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:name, :google_uid, :description, :lat, :lng, :address, :phone_number)
+    params.require(:place).permit(:name, :google_uid, :description, :lat, :lng, :address, :phone_number, :website)
   end
 
   def spot_params
-    params.require(:spot).permit(:user_id, :place_id, :type, :source)
+    params.require(:spot).permit(:user_id, :place_id, :spot_type, :source)
   end
 
 
