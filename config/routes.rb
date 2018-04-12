@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :spots, only: [:index, :create, :update, :destroy]
       resources :notifications, only: [:index, :update]
       resources :images, only: [:create]
+      resources :lists, only: [:index, :create]
     end
   end
 
