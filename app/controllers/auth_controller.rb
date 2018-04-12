@@ -17,4 +17,8 @@ class AuthController  < ApplicationController
       render json: {error: "User not found or token expired"}, status: 401
     end
   end
+
+  def api_key
+    render json: {key: ENV["filestack_api_key"]}
+  end
 end

@@ -10,10 +10,12 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]
       resources :spots, only: [:index, :create, :update, :destroy]
       resources :notifications, only: [:index, :update]
+      resources :images, only: [:create]
     end
   end
 
   post "/login", to: "auth#login"
   get "/current_user", to: "auth#show"
+  get "/api_keys", to: "auth#api_key"
 
 end

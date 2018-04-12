@@ -16,11 +16,9 @@ class Api::V1::SpotsController < ApplicationController
       @place.update(place_params) # in the case that Google updates the place's attributes
     else
       @place = Place.create(place_params)
-      @spot = Spot.create(user_id: user.id, place_id: @place.id, spot_type: params[:type])
     end
     @spot = Spot.find_or_create_by(user_id: user.id, place_id: @place.id)
-    @spot.update(spot_type: params[:spot_type])
-    byebug
+    @spot.update(spot_type: params[:spot_type], source: params[:source])
     render json: @spot
   end
 
