@@ -11,4 +11,15 @@ class Api::V1::ListsController < ApplicationController
     render json: @list
   end
 
+  def update
+    @list = List.find_by(id: params[:id])
+    @list_spot = ListSpot.find_by(list_id: @list.id, spot_id: params[:spot_id])
+    if @list_spot
+      ListSpot.delete(@list_spot.id)
+    else
+      ListSpot.create(list_id: @list.id, spot_id: params[:spot_id])
+    end
+    render json: @list
+  end
+
 end
