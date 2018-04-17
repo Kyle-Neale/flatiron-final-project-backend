@@ -1,7 +1,7 @@
 class Api::V1::NotificationsController < ApplicationController
 
   def index
-    @notifications = Notification.where(user_id: user.id)
+    @notifications = Notification.where(user_id: user.id, unread: true)
     render json: @notifications
   end
 

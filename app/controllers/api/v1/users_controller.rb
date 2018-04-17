@@ -26,14 +26,15 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       jwt = issue_token(user_id: @user.id)
-      render json: {user: @user, token: jwt}
+      render json: {user: UserSerializer.new(@user), token: jwt}
     else
-      render json: [error: @user.errors.messages]
+      render json: {error: @user.errors.messages}
     end
   end
 
   def update
-    if @user.update(params[:user])
+    byebug
+    if @user.update(user_params)
       render json: @user
     else
       render json: [error: @user.errors.messages]
@@ -52,7 +53,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :password, :name, :email)
+    params.require(:user).permit(:username, :password, :name, :email, :image_url)
   end
 
   def serialize(collection)
