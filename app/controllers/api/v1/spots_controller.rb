@@ -20,7 +20,6 @@ class Api::V1::SpotsController < ApplicationController
     @spot = Spot.find_or_create_by(user_id: user.id, place_id: @place.id)
     @spot.update(spot_type: params[:spot_type], source: params[:source])
     if params[:photo]
-      byebug
       Image.create(spot_id: @spot.id, url: params[:photo])
     end
 
