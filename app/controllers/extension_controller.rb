@@ -1,7 +1,6 @@
 class ExtensionController  < ApplicationController
 
   def scrape
-    byebug
     page = Nokogiri::HTML(RestClient.get(params[:url]))
     @json = search_with_title(page) || search_for_addresses(page) || {error: "No results found"}
     render json: @json
@@ -14,7 +13,7 @@ class ExtensionController  < ApplicationController
     @result = RestClient.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{title}&key=#{ENV['google_api_key']}")
     @json = JSON.parse(@result)
     if @json["status"] == "OK"
-      return @json["results"].first
+      return @json["results"]
     else
       return nil
     end

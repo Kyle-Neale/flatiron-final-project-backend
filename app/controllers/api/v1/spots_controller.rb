@@ -19,6 +19,16 @@ class Api::V1::SpotsController < ApplicationController
     end
     @spot = Spot.find_or_create_by(user_id: user.id, place_id: @place.id)
     @spot.update(spot_type: params[:spot_type], source: params[:source])
+    if params[:photo]
+      byebug
+      Image.create(spot_id: @spot.id, url: params[:photo])
+    end
+
+    if User.find_by(username: @spot.source)
+      @user = User.find_by(username: @spot.source)
+      @message = "#{user.username} saved your spot - #{@spot.place.name}."
+      Notification.create(user_id: @user.id, message: @message)
+    end
     render json: @spot
   end
 

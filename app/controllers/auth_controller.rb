@@ -4,7 +4,7 @@ class AuthController  < ApplicationController
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       jwt = issue_token(user_id: @user.id)
-      render json: {user: @user, token: jwt}
+      render json: {user: UserSerializer.new(@user), token: jwt}
     else
       render json: {error: "No user or invalid password"}, status: 401
     end
